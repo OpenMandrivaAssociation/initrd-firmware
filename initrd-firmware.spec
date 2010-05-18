@@ -1,12 +1,13 @@
 %define name initrd-firmware
-%define version 0.1
+%define version 0.2
 %define release %mkrel 1
+%define drakx-img drakx-installer-images
 
 Summary: Initrd wich contains non-free firmware
 Name: %{name}
 Version: %{version}
 Release: %{release}
-Source0: %name-%version.tar.bz2
+Source0: create_initrd_firmware.sh
 License: GPL
 Group: System/Configuration/Packaging
 Url: http://svn.mandriva.com/cgi-bin/viewvc.cgi/soft/build_system/bcd
@@ -20,20 +21,19 @@ BuildArch: noarch
 Initrd wich contains non-free firmware
 
 %prep
-%setup -q
 
 %build
-sh ./create_initrd_firmware.sh $RPM_BUILD_DIR
+cp -vf %{SOURCE0} $RPM_BUILD_DIR/%name-%version
+sh $RPM_BUILD_DIR/%name-%version/create_initrd_firmware.sh $RPM_BUILD_DIR/%name-%version
 
 %install
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/%{_libdir}/%name/
-cp -v $RPM_BUILD_DIR/fw.gz %{buildroot}/%{_libdir}/%name/
+mkdir -p %{buildroot}/%{drakx-img}/isolinux/alt0
+cp -v $RPM_BUILD_DIR/fw.gz %{buildroot}/%{drakx-img}/isolinux/alt0/
 
 %clean
 rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
-%{_libdir}/%name/
-
+%{drakx-img}/isolinux/alt0/fw.gz
