@@ -23,6 +23,7 @@ Initrd wich contains non-free firmware
 %prep
 
 %build
+mkdir -p $RPM_BUILD_DIR/%name-%version/
 cp -vf %{SOURCE0} $RPM_BUILD_DIR/%name-%version
 sh $RPM_BUILD_DIR/%name-%version/create_initrd_firmware.sh $RPM_BUILD_DIR/%name-%version
 
