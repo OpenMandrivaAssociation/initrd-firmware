@@ -1,7 +1,7 @@
 %define name initrd-firmware
 %define version 0.2
 %define release %mkrel 1
-%define drakx-img drakx-installer-images
+%define drakximg /drakx-installer-images/isolinux
 
 Summary: Initrd wich contains non-free firmware
 Name: %{name}
@@ -29,12 +29,12 @@ sh $RPM_BUILD_DIR/%name-%version/create_initrd_firmware.sh $RPM_BUILD_DIR/%name-
 
 %install
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/%{drakx-img}/isolinux/alt0
-cp -v $RPM_BUILD_DIR/fw.gz %{buildroot}/%{drakx-img}/isolinux/alt0/
+mkdir -p %{buildroot}%{_libdir}%{drakximg}/alt0
+cp -v $RPM_BUILD_DIR/%name-%version/fw.gz %{buildroot}%{_libdir}%{drakximg}/alt0/
 
 %clean
 rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
-%{drakx-img}/isolinux/alt0/fw.gz
+%{_libdir}%{drakximg}/alt0/fw.gz
