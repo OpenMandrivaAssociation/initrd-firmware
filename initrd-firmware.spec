@@ -1,6 +1,6 @@
 %define name initrd-firmware
 %define version 0.2
-%define release %mkrel 1
+%define release 2
 %define drakximg /drakx-installer-images/isolinux
 
 Summary: Initrd wich contains non-free firmware
